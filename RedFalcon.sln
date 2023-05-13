@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{074757F4-562A-4A08-8983-034383CF52B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C480C6C0-C266-41B0-8559-898AACAD2E9D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedFalcon.Domain", "src\RedFalcon.Domain\RedFalcon.Domain.csproj", "{83B6C3A0-5BC3-4DD2-B378-B522C0179EB9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedFalcon.Application", "src\RedFalcon.Application\RedFalcon.Application.csproj", "{E3572E39-ECDF-4D1D-A0A3-99F0E5C77A33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedFalcon.Infrastructure", "src\RedFalcon.Infrastructure\RedFalcon.Infrastructure.csproj", "{1CCEB21A-1A9C-4342-A287-9E67394498D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedFalcon.API", "src\RedFalcon.API\RedFalcon.API.csproj", "{A2206FA7-6D69-4528-B130-A1CA399E0E61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedFalcon.WEB", "src\RedFalcon.WEB\RedFalcon.WEB.csproj", "{E53308AD-BA9F-4C48-905F-3E7EB5833F40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83B6C3A0-5BC3-4DD2-B378-B522C0179EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83B6C3A0-5BC3-4DD2-B378-B522C0179EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83B6C3A0-5BC3-4DD2-B378-B522C0179EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83B6C3A0-5BC3-4DD2-B378-B522C0179EB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3572E39-ECDF-4D1D-A0A3-99F0E5C77A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3572E39-ECDF-4D1D-A0A3-99F0E5C77A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3572E39-ECDF-4D1D-A0A3-99F0E5C77A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3572E39-ECDF-4D1D-A0A3-99F0E5C77A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CCEB21A-1A9C-4342-A287-9E67394498D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CCEB21A-1A9C-4342-A287-9E67394498D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CCEB21A-1A9C-4342-A287-9E67394498D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CCEB21A-1A9C-4342-A287-9E67394498D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2206FA7-6D69-4528-B130-A1CA399E0E61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2206FA7-6D69-4528-B130-A1CA399E0E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2206FA7-6D69-4528-B130-A1CA399E0E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2206FA7-6D69-4528-B130-A1CA399E0E61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E53308AD-BA9F-4C48-905F-3E7EB5833F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E53308AD-BA9F-4C48-905F-3E7EB5833F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E53308AD-BA9F-4C48-905F-3E7EB5833F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E53308AD-BA9F-4C48-905F-3E7EB5833F40}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{83B6C3A0-5BC3-4DD2-B378-B522C0179EB9} = {074757F4-562A-4A08-8983-034383CF52B6}
+		{E3572E39-ECDF-4D1D-A0A3-99F0E5C77A33} = {074757F4-562A-4A08-8983-034383CF52B6}
+		{1CCEB21A-1A9C-4342-A287-9E67394498D9} = {074757F4-562A-4A08-8983-034383CF52B6}
+		{A2206FA7-6D69-4528-B130-A1CA399E0E61} = {074757F4-562A-4A08-8983-034383CF52B6}
+		{E53308AD-BA9F-4C48-905F-3E7EB5833F40} = {074757F4-562A-4A08-8983-034383CF52B6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {271D0FA7-0DD2-4D46-BAF1-B7A63576ED5C}
+	EndGlobalSection
+EndGlobal

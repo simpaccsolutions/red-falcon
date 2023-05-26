@@ -65,7 +65,7 @@ namespace RedFalcon.Infrastructure.Data.Repositories
 
         public async Task<Contact?> GetByIdAsync(int contactid)
         {
-            var query = $@"SELECT * FROM Contact  WHERE IsDeleted=0 AND ID=@ID;";
+            var query = $@"SELECT * FROM Contact WHERE IsDeleted=0 AND ID=@ID;";
             var queryParams = new
             {
                 ID = contactid
@@ -84,7 +84,7 @@ namespace RedFalcon.Infrastructure.Data.Repositories
                                 BirthDate = @BirthDate,
                                 Email = @Email,
                                 Phone = @Phone
-                            WHERE ID=@ID;";
+                            WHERE IsDeleted=0 AND ID=@ID;";
 
             var queryParams = new
             {

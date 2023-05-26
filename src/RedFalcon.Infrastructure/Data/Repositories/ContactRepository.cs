@@ -15,8 +15,8 @@ namespace RedFalcon.Infrastructure.Data.Repositories
 
         public async Task<Contact> CreateAsync(Contact contact)
         {
-            var query = $@"INSERT INTO Contact (Firstname, Lastname, BirthDate, Email, Phone, CreatedBy, DateCreated)                            
-                            VALUES (@Firstname, @Lastname, @BirthDate, @Email, @Phone, @CreatedBy, @DateCreated);
+            var query = $@"INSERT INTO Contact (Firstname, Lastname, BirthDate, Email, Phone, IsDeleted, CreatedBy, DateCreated)                            
+                            VALUES (@Firstname, @Lastname, @BirthDate, @Email, @Phone, 0, @CreatedBy, @DateCreated);
                             SELECT LAST_INSERT_ID();
                             ";
 
@@ -38,7 +38,7 @@ namespace RedFalcon.Infrastructure.Data.Repositories
 
         public async Task<bool> DeleteAsync(int contactid)
         {
-            var query = $@"DELETE FROM Contact WHERE ID=@ID;";
+            var query = $@"UPDATE Contact SET IsDeleted=1 WHERE ID=@ID;";
 
             var queryParams = new
             {
@@ -54,7 +54,7 @@ namespace RedFalcon.Infrastructure.Data.Repositories
         {
             IEnumerable<Contact> result;
 
-            var query = $@"SELECT * FROM Contact";
+            var query = $@"SELECT * FROM Contact WHERE IsDeleted=0;";
 
             // Call Search, Filter, Order Logic Here
 
@@ -65,7 +65,7 @@ namespace RedFalcon.Infrastructure.Data.Repositories
 
         public async Task<Contact?> GetByIdAsync(int contactid)
         {
-            var query = $@"SELECT * FROM Contact WHERE ID=@ID;";
+            var query = $@"SELECT * FROM Contact  WHERE IsDeleted=0 AND ID=@ID;";
             var queryParams = new
             {
                 ID = contactid

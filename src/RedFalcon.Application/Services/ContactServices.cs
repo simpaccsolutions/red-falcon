@@ -35,9 +35,8 @@ namespace RedFalcon.Application.Services
                 var record = _mapper.Map<Contact>(contact);
                 record.CreatedBy = "1";
                 record.DateCreated = DateTime.UtcNow;
-
-                
-                _validator.ValidateData(record);
+                                
+                await _validator.ValidateData(record);
 
                 _unitofwork.CreateTransaction();
 

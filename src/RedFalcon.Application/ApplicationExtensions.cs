@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RedFalcon.Application.Interfaces.Services;
+using RedFalcon.Application.Interfaces.Validator;
 using RedFalcon.Application.Mappings;
 using RedFalcon.Application.Services;
+using RedFalcon.Application.Validators;
 
 namespace RedFalcon.Application
 {
@@ -11,6 +13,7 @@ namespace RedFalcon.Application
         {
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddTransient<IContactServices, ContactServices>();
+            services.AddTransient<IContactValidator, ContactValidator>();
             return services;
         }
     }

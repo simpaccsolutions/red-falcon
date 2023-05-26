@@ -36,8 +36,7 @@ namespace RedFalcon.Application.Services
                 record.CreatedBy = "1";
                 record.DateCreated = DateTime.UtcNow;
 
-                
-                _validator.ValidateData(record);
+                await _validator.ValidateData(record);
 
                 _unitofwork.CreateTransaction();
 

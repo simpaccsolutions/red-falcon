@@ -1,5 +1,4 @@
 ﻿using RedFalcon.Domain.Entities.Base;
-using System;
 
 namespace RedFalcon.Domain.Entities
 {
@@ -10,5 +9,9 @@ namespace RedFalcon.Domain.Entities
         public DateTime? BirthDate { get; set; }
         public string Email { get; set; } = null!;
         public string Phone { get; set; } = null!;
+
+        public int? OrganizationId { get; set; }
+
+        public Organization Organization { get; set; } = null!;
     }
 }

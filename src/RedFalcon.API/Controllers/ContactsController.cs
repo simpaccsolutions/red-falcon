@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RedFalcon.Application.DTOs;
 using RedFalcon.Application.Interfaces.Services;
+using RedFalcon.Application.ResourceParameters;
 
 namespace RedFalcon.API.Controllers
 {
@@ -13,15 +14,30 @@ namespace RedFalcon.API.Controllers
         {
             _contact = contact;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAsync()
-        {
 
-            return Ok(new { contacts = await _contact.GetAsync() });
+        [HttpGet]
+        public async Task<IActionResult> GetContactsAsync(string? search, int page = 1, int pagesize = 10)
+        {
+            var resourceParameters = new ContactResourceParameters
+            {
+                Search = search,
+                Page = page,
+                PageSize = pagesize
+            };
+            var records = await _contact.GetAsync(resourceParameters);
+
+            return Ok(new
+            {
+                data = records,
+                total = records.TotalCount,
+                page = resourceParameters.Page,
+                pageSize = resourceParameters.PageSize,
+                totalPages = records.TotalPages,
+            });
         }
 
-        [HttpGet("{id}", Name = nameof(ContactsController.GetByIdAsync))]
-        public async Task<IActionResult> GetByIdAsync(int id)
+        [HttpGet("{id}", Name = nameof(ContactsController.GetContactByIdAsync))]
+        public async Task<IActionResult> GetContactByIdAsync(int id)
         {
             var contact = await _contact.GetByIdAsync(id);
             if (contact == null)
@@ -33,18 +49,18 @@ namespace RedFalcon.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateContactDTO contact)
+        public async Task<IActionResult> CreateContactAsync([FromBody] CreateContactDTO contact)
         {
             var record = await _contact.CreateAsync(contact);
 
             if (record == null)
                 return BadRequest("Failed");
 
-            return CreatedAtRoute(nameof(ContactsController.GetByIdAsync), new { id = record.Id }, record);
+            return CreatedAtRoute(nameof(ContactsController.GetContactByIdAsync), new { id = record.Id }, record);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateContactDTO contact)
+        public async Task<IActionResult> UpdateContactAsync([FromRoute] int id, [FromBody] UpdateContactDTO contact)
         {
             var isSuccess = await _contact.UpdateAsync(id, contact);
 
@@ -55,7 +71,7 @@ namespace RedFalcon.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> DeleteContactAsync([FromRoute] int id)
         {
             if (id == 0)
             {

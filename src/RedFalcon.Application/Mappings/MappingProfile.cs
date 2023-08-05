@@ -11,6 +11,10 @@ namespace RedFalcon.Application.Mappings
             CreateMap<Contact, CreateContactDTO>().ReverseMap();
             CreateMap<Contact, UpdateContactDTO>().ReverseMap();
             CreateMap<Contact, ViewContactDTO>();
+
+            CreateMap<Organization, CreateOrganizationDTO>().ReverseMap();
+            CreateMap<Organization, UpdateOrganizationDTO>().ReverseMap();
+            CreateMap<Organization, ViewOrganizationDTO>();
         }
     }
 }

@@ -2,7 +2,8 @@
 
 namespace RedFalcon.Application.Interfaces.Validator
 {
-    public interface IContactValidator : IValidate<Contact>
+    public interface IOrganizationValidator : IValidate<Organization>
     {
+
     }
 }

@@ -1,11 +1,9 @@
 ﻿using FluentEmail.MailKitSmtp;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RedFalcon.Application.Interfaces.Data;
 using RedFalcon.Application.Interfaces.External;
 using RedFalcon.Infrastructure.Data;
-using RedFalcon.Infrastructure.Data.Context;
 using RedFalcon.Infrastructure.Data.Repositories;
 using RedFalcon.Infrastructure.Services;
 
@@ -15,15 +13,10 @@ namespace RedFalcon.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseMySQL(configuration.GetConnectionString("DbConnection") ?? "");
-            });
-
             services.AddScoped<DatabaseSession>();
 
             services.AddTransient<IContactRepository, ContactRepository>();
+            services.AddTransient<IOrganizationRepository, OrganizationRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

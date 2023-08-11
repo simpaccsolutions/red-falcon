@@ -5,6 +5,7 @@ using RedFalcon.Application.Interfaces.Data;
 using RedFalcon.Application.Interfaces.External;
 using RedFalcon.Infrastructure.Data;
 using RedFalcon.Infrastructure.Data.Repositories;
+using RedFalcon.Infrastructure.Data.StoredProcRepositories;
 using RedFalcon.Infrastructure.Services;
 
 namespace RedFalcon.Infrastructure
@@ -15,8 +16,13 @@ namespace RedFalcon.Infrastructure
         {
             services.AddScoped<DatabaseSession>();
 
+            // Inline SQL Repositories
             services.AddTransient<IContactRepository, ContactRepository>();
-            services.AddTransient<IOrganizationRepository, OrganizationRepository>();
+            //services.AddTransient<IOrganizationRepository, OrganizationRepository>();
+
+            // Stored Procedure Repositories
+            services.AddTransient<IOrganizationRepository, SPOrganizationRepository>();
+
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

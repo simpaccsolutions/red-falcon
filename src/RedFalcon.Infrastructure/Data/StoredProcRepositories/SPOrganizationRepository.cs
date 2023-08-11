@@ -2,24 +2,22 @@
 using RedFalcon.Application.Interfaces.Data;
 using RedFalcon.Application.ResourceParameters;
 using RedFalcon.Domain.Entities;
+using System.Data;
 
-namespace RedFalcon.Infrastructure.Data.Repositories
+namespace RedFalcon.Infrastructure.Data.StoredProcRepositories
 {
-    public class OrganizationRepository : IOrganizationRepository
+    public class SPOrganizationRepository : IOrganizationRepository
     {
         private readonly DatabaseSession _dbSession;
 
-        public OrganizationRepository(DatabaseSession dbSession)
+        public SPOrganizationRepository(DatabaseSession dbSession)
         {
             _dbSession = dbSession;
         }
 
         public async Task<Organization> CreateAsync(Organization organization)
         {
-            var query = $@"INSERT INTO Organization (Name, Description, IsDeleted, CreatedBy, DateCreated)                            
-                            VALUES (@Name, @Description, 0, @CreatedBy, @DateCreated);
-                            SELECT LAST_INSERT_ID();
-                            ";
+            var query = $@"sp_CreateOrganization";
 
             var queryParams = new
             {
@@ -29,21 +27,21 @@ namespace RedFalcon.Infrastructure.Data.Repositories
                 DateCreated = organization.DateCreated,
             };
 
-            organization.Id = await _dbSession.Connection.ExecuteScalarAsync<int>(query, queryParams, _dbSession.Transaction);
+            organization.Id = await _dbSession.Connection.ExecuteScalarAsync<int>(query, queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
 
             return organization;
         }
 
-        public async Task<bool> DeleteAsync(int organizationid)
+        public async Task<bool> DeleteAsync(int organizationId)
         {
-            var query = $@"UPDATE Organization SET IsDeleted=1 WHERE ID=@ID;";
+            var query = $@"sp_DeleteOrganization";
 
             var queryParams = new
             {
-                ID = organizationid
+                OrganizationId = organizationId
             };
 
-            await _dbSession.Connection.ExecuteAsync(query, queryParams, _dbSession.Transaction);
+            await _dbSession.Connection.ExecuteAsync(query, queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
 
             return true;
         }
@@ -80,32 +78,29 @@ namespace RedFalcon.Infrastructure.Data.Repositories
 
         public async Task<Organization?> GetByIdAsync(int organizationid)
         {
-            var query = $@"SELECT * FROM Organization WHERE IsDeleted=0 AND ID=@ID;";
+            var query = $@"sp_GetOrganizationById";
             var queryParams = new
             {
-                ID = organizationid
+                OrganizationId = organizationid
             };
 
-            var result = await _dbSession.Connection.QueryFirstOrDefaultAsync<Organization>(query, queryParams);
+            var result = await _dbSession.Connection.QueryFirstOrDefaultAsync<Organization>(query, queryParams, commandType: CommandType.StoredProcedure);
 
             return result;
         }
 
         public async Task<bool> UpdateAsync(Organization organization)
         {
-            var query = $@"UPDATE Organization
-                            SET Name = @Name,
-                                Description = @Description
-                            WHERE IsDeleted=0 AND ID=@ID;";
+            var query = $@"sp_UpdateOrganization";
 
             var queryParams = new
             {
                 Name = organization.Name,
                 Description = organization.Description,
-                ID = organization.Id
+                OrganizationId = organization.Id
             };
 
-            await _dbSession.Connection.ExecuteAsync(query, queryParams, _dbSession.Transaction);
+            await _dbSession.Connection.ExecuteAsync(query, queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
 
             return true;
         }

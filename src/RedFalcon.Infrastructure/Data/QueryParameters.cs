@@ -1,4 +1,4 @@
-﻿namespace RedFalcon.Infrastructure.Data.Repositories
+﻿namespace RedFalcon.Infrastructure.Data
 {
     public class QueryParameters
     {
@@ -19,7 +19,7 @@
             _searchQuery = searchQuery;
             _searchableFields = searchableFields;
             _filters = filters;
-            _page = (page == null || page == 0) ? 1 : page.Value;
+            _page = page == null || page == 0 ? 1 : page.Value;
             _pageSize = pageSize == null ? defaultPageSize : pageSize > maximumPageSize ? maximumPageSize : pageSize.Value;
             _hasPaginationParameter = page != null && pageSize != null;
             Parameters = new Dictionary<string, object>();
@@ -35,7 +35,7 @@
             _searchQuery = searchQuery;
             _searchableFields = searchableFields;
             _filters = null;
-            _page = (page == null || page == 0) ? 1 : page.Value;
+            _page = page == null || page == 0 ? 1 : page.Value;
             _pageSize = pageSize == null ? defaultPageSize : pageSize > maximumPageSize ? maximumPageSize : pageSize.Value;
             _hasPaginationParameter = page != null && pageSize != null;
             Parameters = new Dictionary<string, object>();

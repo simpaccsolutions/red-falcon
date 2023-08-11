@@ -6,14 +6,17 @@ namespace RedFalcon.Infrastructure.Data
     {
         private readonly DatabaseSession _dbSession;
         private readonly IContactRepository _contactRepository;
+        private readonly IOrganizationRepository _organizationRepository;
 
-        public UnitOfWork(DatabaseSession dbSession, IContactRepository contactRepository)
+        public UnitOfWork(DatabaseSession dbSession, IContactRepository contactRepository, IOrganizationRepository organizationRepository)
         {
             _dbSession = dbSession;
             _contactRepository = contactRepository;
+            _organizationRepository = organizationRepository;
         }
 
         public IContactRepository Contacts => _contactRepository;
+        public IOrganizationRepository Organizations => _organizationRepository;
 
         public void Commit()
         {

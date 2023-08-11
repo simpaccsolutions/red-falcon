@@ -13,7 +13,11 @@ namespace RedFalcon.Application
         {
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddTransient<IContactServices, ContactServices>();
+            services.AddTransient<IOrganizationServices, OrganizationServices>();
+
             services.AddTransient<IContactValidator, ContactValidator>();
+            services.AddTransient<IOrganizationValidator, OrganizationValidator>();
+
             return services;
         }
     }

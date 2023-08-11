@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace RedFalcon.Application.Interfaces.Data
+﻿namespace RedFalcon.Application.Interfaces.Data
 {
     public interface IBaseRepository<T> where T : class
     {
@@ -10,6 +7,5 @@ namespace RedFalcon.Application.Interfaces.Data
         Task<bool> UpdateAsync(T entity);
         Task<bool> DeleteAsync(int id);
         Task<T?> GetByIdAsync(int id);
-        Task<IEnumerable<T>> GetAsync();
     }
 }

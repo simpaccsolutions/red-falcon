@@ -10,14 +10,14 @@ using RedFalcon.Domain.Entities;
 
 namespace RedFalcon.Application.Services
 {
-    public class ContactServices : IContactServices
+    public class OrganizationServices : IOrganizationServices
     {
         private readonly IUnitOfWork _unitofwork;
         private readonly IMapper _mapper;
-        private readonly ILogger<ContactServices> _logger;
-        private readonly IContactValidator _validator;
+        private readonly ILogger<OrganizationServices> _logger;
+        private readonly IOrganizationValidator _validator;
 
-        public ContactServices(IUnitOfWork unitofwork, IMapper mapper, ILogger<ContactServices> logger, IContactValidator validator)
+        public OrganizationServices(IUnitOfWork unitofwork, IMapper mapper, ILogger<OrganizationServices> logger, IOrganizationValidator validator)
         {
             _unitofwork = unitofwork;
             _mapper = mapper;
@@ -25,11 +25,11 @@ namespace RedFalcon.Application.Services
             _validator = validator;
         }
 
-        public async Task<ViewContactDTO?> CreateAsync(CreateContactDTO contact)
+        public async Task<ViewOrganizationDTO?> CreateAsync(CreateOrganizationDTO organization)
         {
             try
             {
-                var record = _mapper.Map<Contact>(contact);
+                var record = _mapper.Map<Organization>(organization);
                 record.CreatedBy = "1";
                 record.DateCreated = DateTime.UtcNow;
 
@@ -37,11 +37,11 @@ namespace RedFalcon.Application.Services
 
                 _unitofwork.CreateTransaction();
 
-                await _unitofwork.Contacts.CreateAsync(record);
+                await _unitofwork.Organizations.CreateAsync(record);
 
                 _unitofwork.Commit();
 
-                return _mapper.Map<ViewContactDTO>(record);
+                return _mapper.Map<ViewOrganizationDTO>(record);
 
             }
             catch (Exception ex)
@@ -53,18 +53,18 @@ namespace RedFalcon.Application.Services
             return null;
         }
 
-        public async Task<bool> DeleteAsync(int contactId)
+        public async Task<bool> DeleteAsync(int organizationId)
         {
             try
             {
-                var record = await _unitofwork.Contacts.GetByIdAsync(contactId);
+                var record = await _unitofwork.Organizations.GetByIdAsync(organizationId);
                 if (record == null)
                 {
                     return false;
                 }
 
                 _unitofwork.CreateTransaction();
-                await _unitofwork.Contacts.DeleteAsync(record.Id);
+                await _unitofwork.Organizations.DeleteAsync(record.Id);
                 _unitofwork.Commit();
 
                 return true;
@@ -78,13 +78,13 @@ namespace RedFalcon.Application.Services
             return false;
         }
 
-        public async Task<PaginatedList<ViewContactDTO>> GetAsync(ContactResourceParameters resourceParameters)
+        public async Task<PaginatedList<ViewOrganizationDTO>> GetAsync(OrganizationResourceParameters resourceParameters)
         {
-            resourceParameters.SearchFields = new List<string> { "Firstname", "Lastname", "Email", "Phone" };
-            var result = await _unitofwork.Contacts.GetAsync(resourceParameters).ConfigureAwait(false);
+            resourceParameters.SearchFields = new List<string> { "Name", "Description" };
+            var result = await _unitofwork.Organizations.GetAsync(resourceParameters).ConfigureAwait(false);
 
-            var paginatedResult = new PaginatedList<ViewContactDTO>(
-                _mapper.Map<IEnumerable<ViewContactDTO>>(result.contacts).ToList(),
+            var paginatedResult = new PaginatedList<ViewOrganizationDTO>(
+                _mapper.Map<IEnumerable<ViewOrganizationDTO>>(result.organizations).ToList(),
                 result.recordCount,
                 resourceParameters.Page,
                 resourceParameters.PageSize);
@@ -92,25 +92,25 @@ namespace RedFalcon.Application.Services
             return paginatedResult;
         }
 
-        public async Task<ViewContactDTO?> GetByIdAsync(int contactId)
+        public async Task<ViewOrganizationDTO?> GetByIdAsync(int organizationId)
         {
-            var record = await _unitofwork.Contacts.GetByIdAsync(contactId).ConfigureAwait(false);
+            var record = await _unitofwork.Organizations.GetByIdAsync(organizationId).ConfigureAwait(false);
 
-            return _mapper.Map<ViewContactDTO>(record);
+            return _mapper.Map<ViewOrganizationDTO>(record);
         }
 
-        public async Task<bool> UpdateAsync(int contactId, UpdateContactDTO contact)
+        public async Task<bool> UpdateAsync(int organizationId, UpdateOrganizationDTO organization)
         {
             try
             {
-                var record = await _unitofwork.Contacts.GetByIdAsync(contactId).ConfigureAwait(false);
+                var record = await _unitofwork.Organizations.GetByIdAsync(organizationId).ConfigureAwait(false);
                 if (record == null)
                     return false;
 
-                _mapper.Map(contact, record);
+                _mapper.Map(organization, record);
 
                 _unitofwork.CreateTransaction();
-                await _unitofwork.Contacts.UpdateAsync(record).ConfigureAwait(false);
+                await _unitofwork.Organizations.UpdateAsync(record).ConfigureAwait(false);
                 _unitofwork.Commit();
 
                 return true;
